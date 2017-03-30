@@ -5,12 +5,19 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res, next) => {
-	console.log('Hello World!');
-	res.send('Hello World!');
+	res.render('index', { title: 'Welcome' });
+});
+
+app.get('/about', (req, res, next) => {
+	res.render('about');
 });
 
 app.listen(3000);
